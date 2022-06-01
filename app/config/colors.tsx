@@ -1,0 +1,15 @@
+export default {
+	black: "#0F1113",
+	gray200: "#7F879B",
+	gray300: "#51596C",
+	gray400: "#383F51",
+	gray500: "#35373F",
+	gray600: "#292929",
+	gray700: "#282C35",
+	green: "#46FF64",
+	primary: "#04BDBC",
+	secondary: "#007CD6",
+	white: "#E2E5EF",
+	yellow: "#FFE769",
+	red: "#df5050",
+};
