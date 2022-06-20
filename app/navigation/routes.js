@@ -15,4 +15,5 @@ export default Object.freeze({
 	ADD_PRICING: "AddPricing",
 	LOGIN: "Login",
 	REGISTER: "Register",
+	VERIFY_PHONE: "VerifyPhone",
 });

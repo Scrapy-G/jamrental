@@ -1,10 +1,5 @@
-import { Text, TextProps } from "react-native";
+import { Text, TextProps, TextStyle } from "react-native";
 import React from "react";
-import {
-	useFonts,
-	Rubik_400Regular,
-	Rubik_600SemiBold,
-} from "@expo-google-fonts/rubik";
 
 import colors from "../config/colors";
 
@@ -13,7 +8,7 @@ type AppTextProps = TextProps & {
 	children: any;
 	bold?: boolean;
 	small?: boolean;
-	style?: any;
+	style?: TextStyle;
 };
 
 export default function AppText({

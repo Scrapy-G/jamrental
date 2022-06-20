@@ -33,16 +33,13 @@ export default function Button({
 					styles.button,
 					{
 						backgroundColor: disabled
-							? colors.gray700
+							? colors.primaryDark
 							: colors.primary,
 					},
 					style,
 				]}
 			>
-				<Text
-					bold
-					style={{ color: disabled ? colors.gray200 : colors.white }}
-				>
+				<Text bold style={styles.text}>
 					{title}
 				</Text>
 			</View>
@@ -53,12 +50,16 @@ export default function Button({
 const styles = StyleSheet.create({
 	button: {
 		alignItems: "center",
-		borderRadius: 30,
+		borderRadius: 10,
 		justifyContent: "center",
 		marginVertical: 5,
 		paddingVertical: 12,
 		paddingHorizontal: 32,
 		width: "100%",
 		height: 55,
+	},
+	text: {
+		color: colors.black,
+		textTransform: "uppercase",
 	},
 });

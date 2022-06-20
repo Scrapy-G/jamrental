@@ -17,13 +17,14 @@ export default function AppTextInput({ style, ...rest }: InputProps) {
 		<TextInput
 			placeholderTextColor={colors.gray300}
 			style={[
-				{ borderColor: focused ? colors.primary : colors.gray700 },
+				{ borderColor: focused ? colors.primary : colors.gray300 },
 				styles.input,
 				style,
 			]}
 			{...rest}
 			onFocus={() => setFocused(true)}
 			onBlur={() => setFocused(false)}
+			selectionColor={colors.primary}
 		/>
 	);
 }
@@ -31,15 +32,12 @@ export default function AppTextInput({ style, ...rest }: InputProps) {
 const styles = StyleSheet.create({
 	container: {},
 	input: {
+		borderBottomWidth: 1,
 		width: "100%",
 		color: colors.white,
-		height: 55,
+		height: 50,
 		alignItems: "center",
-		backgroundColor: colors.gray700,
-		borderRadius: 15,
-		borderWidth: 2,
 		marginVertical: 8,
-		paddingHorizontal: 16,
 		paddingVertical: 12,
 		...defaultStyles.text,
 	},
