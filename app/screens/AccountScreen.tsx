@@ -11,6 +11,7 @@ import routes from "../navigation/routes";
 import useApi from "../api/useApi";
 import { logOut } from "../api/auth";
 import { useAuth } from "../auth/context";
+import { getAuth } from "firebase/auth";
 
 const accountOptions = [
 	{
@@ -24,6 +25,8 @@ const accountOptions = [
 		target: routes.MY_VEHICLES,
 	},
 ];
+
+const auth = getAuth();
 
 function AccountScreen({ navigation }: any) {
 	const { request: logOutUser } = useApi(logOut);
@@ -41,7 +44,7 @@ function AccountScreen({ navigation }: any) {
 					source={require("../../assets/profile.png")}
 					style={styles.image}
 				/>
-				<AppText>Chad McKenzie</AppText>
+				<AppText>{auth.currentUser?.displayName}</AppText>
 				<AppText small style={styles.subTitle}>
 					(876) 123 - 4567
 				</AppText>

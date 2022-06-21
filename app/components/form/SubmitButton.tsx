@@ -9,12 +9,12 @@ type SubmitButtonProps = {
 };
 
 function SubmitButton({ title, disabled = false }: SubmitButtonProps) {
-	const { handleSubmit } = useFormikContext();
+	const { submitForm } = useFormikContext();
 
 	return (
 		<Button
 			title={title}
-			onPress={handleSubmit}
+			onPress={submitForm}
 			disabled={disabled}
 			style={{ marginVertical: 16 }}
 		/>

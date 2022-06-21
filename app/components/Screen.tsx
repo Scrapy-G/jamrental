@@ -18,7 +18,7 @@ export default function Screen({ children, style }: any) {
 
 const styles = StyleSheet.create({
 	screen: {
-		backgroundColor: colors.black,
+		backgroundColor: colors.gray700,
 		flex: 1,
 		paddingTop: Constant.statusBarHeight,
 	},

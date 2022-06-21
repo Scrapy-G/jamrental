@@ -4,8 +4,8 @@ import colors from "../config/colors";
 import AppText from "./Text";
 
 type ErrorBannerProps = {
-	visible: boolean;
-	error: string;
+	visible: any;
+	error: string | null | undefined;
 };
 function ErrorBanner({ visible, error }: ErrorBannerProps) {
 	if (!visible) return null;

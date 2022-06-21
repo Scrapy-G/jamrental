@@ -19,7 +19,7 @@ function Loader({ size }: LoaderProps) {
 					width: size,
 					height: size,
 				}}
-				source={require("../../assets/loader.json")}
+				source={require("../../assets/car-loader.json")}
 			/>
 		</View>
 	);

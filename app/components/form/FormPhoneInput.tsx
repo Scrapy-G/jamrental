@@ -21,7 +21,7 @@ function FormPhoneInput({ label, name }: FormPhoneInputProps) {
 	};
 
 	return (
-		<View style={styles.container}>
+		<View>
 			{label && (
 				<Text small style={styles.label}>
 					{label}
@@ -29,8 +29,8 @@ function FormPhoneInput({ label, name }: FormPhoneInputProps) {
 			)}
 			<PhoneInput
 				defaultCode='JM'
-				layout='second'
-				onChangeText={handleTextChange}
+				layout='first'
+				onChangeFormattedText={handleTextChange}
 				textInputProps={{
 					placeholderTextColor: colors.gray300,
 					onFocus: () => setFocused(true),
@@ -44,7 +44,7 @@ function FormPhoneInput({ label, name }: FormPhoneInputProps) {
 				withDarkTheme
 				containerStyle={[
 					styles.inputContainer,
-					{ borderColor: focused ? colors.primary : colors.gray700 },
+					{ borderColor: focused ? colors.primary : colors.gray300 },
 				]}
 				textInputStyle={styles.textInput}
 				textContainerStyle={styles.textContainer}
@@ -58,31 +58,32 @@ function FormPhoneInput({ label, name }: FormPhoneInputProps) {
 
 const styles = StyleSheet.create({
 	codeTextStyle: {
-		marginRight: 0,
+		marginRight: 10,
 		color: colors.gray200,
-	},
-	container: {
-		marginVertical: 8,
+		height: 40,
+		textAlignVertical: "center",
 	},
 	inputContainer: {
-		backgroundColor: colors.gray700,
-		borderRadius: 15,
+		backgroundColor: "transparent",
 		width: "100%",
-		overflow: "hidden",
-		marginVertical: 8,
-		borderWidth: 2,
-		height: 60,
+		height: 50,
+		borderBottomWidth: 1,
 	},
 	countryPicker: {
-		width: 70,
-		justifyContent: "flex-end",
-		padding: 0,
+		width: 30,
+		height: 30,
+		marginRight: 0,
+		marginTop: 8,
+		backgroundColor: colors.gray300,
+		paddingLeft: 10,
+		borderRadius: 20,
 	},
 	textContainer: {
-		backgroundColor: colors.gray700,
+		backgroundColor: "transparent",
 	},
 	textInput: {
 		color: colors.white,
+		height: 40,
 	},
 	label: {
 		color: colors.gray200,

@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
 	container: {
 		width: 300,
 		height: 90,
-		backgroundColor: colors.gray400,
-		borderRadius: 16,
+		backgroundColor: colors.black,
+		borderRadius: 10,
 		flexDirection: "row",
 		overflow: "hidden",
 	},

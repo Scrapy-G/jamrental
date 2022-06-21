@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import * as Yup from "yup";
 
@@ -16,6 +16,7 @@ import { logIn } from "../api/auth";
 import { useAuth } from "../auth/context";
 import ErrorBanner from "../components/ErrorBanner";
 import LoadingScreen from "./LoadingScreen";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string().required().email().label("Email"),
@@ -27,62 +28,82 @@ const initialValues = {
 	name: "",
 };
 
+const auth = getAuth();
+
 function LogInScreen() {
-	const authApi = useApi(logIn);
-	const { setUser } = useAuth();
+	const [loading, setLoading] = useState<boolean>(false);
+	const [error, setError] = useState<string | null>();
 
 	const handleSubmit = async ({ email, password }: any) => {
-		const userCredentials = await authApi.request(email, password);
-		const user = userCredentials;
-		if (user) setUser(user);
+		setLoading(true);
+		setError(null);
+		try {
+			await signInWithEmailAndPassword(auth, email, password);
+		} catch (err: any) {
+			setError(err.message);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	return (
-		<Screen style={styles.screen}>
-			<LoadingScreen
-				backgroundColor='#00000070'
-				visible={authApi.loading}
-				label=''
-			/>
-			<ErrorBanner
-				visible={authApi.error}
-				error='Incorrect email/password'
-			/>
-			<ScrollView>
+		<Screen>
+			<LoadingScreen backgroundColor='#00000070' visible={loading} />
+			<ErrorBanner visible={error} error='Incorrect email/password' />
+			<ScrollView style={styles.container}>
 				<NavHeader title='Log in' showBackIcon={false} />
-				<Form
-					initialValues={initialValues}
-					validationSchema={validationSchema}
-					onSubmit={handleSubmit}
-				>
-					<FormField label='Email' name='email' placeholder='Email' />
-					<FormField
-						label='Password'
-						name='password'
-						placeholder='Password'
-						secureTextEntry
-					/>
-					<SubmitButton title='Submit' disabled={false} />
-				</Form>
-				<Link
-					to={{ screen: routes.REGISTER, params: {} }}
-					style={styles.text}
-				>
-					<Text>Don't have an account? </Text>
-					<Text style={{ color: colors.primary }}>Sign up</Text>
-				</Link>
+				<View style={styles.formContainer}>
+					<Form
+						initialValues={initialValues}
+						validationSchema={validationSchema}
+						onSubmit={handleSubmit}
+					>
+						<FormField name='email' placeholder='Email' />
+						<FormField
+							name='password'
+							placeholder='Password'
+							secureTextEntry
+						/>
+						<Text
+							underline
+							small
+							style={{ textAlign: "right", marginVertical: 6 }}
+							color={colors.gray300}
+						>
+							Forgot password?
+						</Text>
+						<SubmitButton title='Submit' disabled={false} />
+					</Form>
+					<Link
+						to={{ screen: routes.REGISTER, params: {} }}
+						style={styles.text}
+					>
+						<Text style={{ color: colors.gray200 }}>
+							Don't have an account?{" "}
+						</Text>
+						<Text bold underline color={colors.gray200}>
+							Sign up
+						</Text>
+					</Link>
+				</View>
 			</ScrollView>
 		</Screen>
 	);
 }
 
 const styles = StyleSheet.create({
-	screen: {
-		paddingHorizontal: 12,
+	container: {
+		paddingHorizontal: 18,
+	},
+	formContainer: {
+		backgroundColor: colors.black,
+		borderRadius: 10,
+		padding: 16,
+		marginVertical: 30,
 	},
 	text: {
 		textAlign: "center",
-		marginTop: 12,
+		marginVertical: 12,
 	},
 });
 

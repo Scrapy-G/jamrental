@@ -1,4 +1,4 @@
-import { View, TextInputProps, TextStyle } from "react-native";
+import { TextInputProps } from "react-native";
 import React, { useState } from "react";
 import { TextInput, StyleSheet } from "react-native";
 
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 		color: colors.white,
 		height: 50,
 		alignItems: "center",
-		marginVertical: 8,
+		marginVertical: 4,
 		paddingVertical: 12,
 		...defaultStyles.text,
 	},

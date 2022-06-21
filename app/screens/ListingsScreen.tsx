@@ -66,17 +66,20 @@ function ListingsScreen({ navigation }: any) {
 
 	return (
 		<Screen>
-			<View style={styles.topBar}>
-				<Button
-					style={styles.searchButton}
-					title='Search this area'
-					disabled={loading || areaSearched}
-					onPress={() => {
-						loadListings(mapCoords);
-						setAreaSearched(true);
-					}}
-				/>
-			</View>
+			{!areaSearched && (
+				<View style={styles.topBar}>
+					<Button
+						style={styles.searchButton}
+						title='Search area'
+						disabled={loading || areaSearched}
+						onPress={() => {
+							loadListings(mapCoords);
+							setAreaSearched(true);
+						}}
+					/>
+				</View>
+			)}
+
 			<Map
 				initialRegion={{ ...currentLocation, ...mapStyles.delta }}
 				markerItems={listings}
@@ -90,7 +93,7 @@ function ListingsScreen({ navigation }: any) {
 				}}
 			/>
 			<LinearGradient
-				colors={["transparent", colors.black]}
+				colors={["transparent", "#00000040"]}
 				style={styles.listingsContainer}
 			>
 				{loading && <Loader size={100} />}
@@ -147,6 +150,7 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		bottom: 0,
 		zIndex: 100,
+		paddingVertical: 16,
 		alignItems: "center",
 	},
 	searchButton: {
@@ -157,6 +161,7 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		alignItems: "center",
 		zIndex: 1,
+		height: 0,
 		top: 10,
 	},
 	message: {

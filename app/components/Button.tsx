@@ -1,6 +1,6 @@
 import {
 	StyleSheet,
-	TouchableWithoutFeedback,
+	TouchableNativeFeedback,
 	View,
 	ViewStyle,
 } from "react-native";
@@ -23,7 +23,7 @@ export default function Button({
 	style,
 }: Props) {
 	return (
-		<TouchableWithoutFeedback
+		<TouchableNativeFeedback
 			onPress={() => {
 				if (!disabled) onPress();
 			}}
@@ -43,7 +43,7 @@ export default function Button({
 					{title}
 				</Text>
 			</View>
-		</TouchableWithoutFeedback>
+		</TouchableNativeFeedback>
 	);
 }
 
@@ -53,10 +53,9 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		justifyContent: "center",
 		marginVertical: 5,
-		paddingVertical: 12,
 		paddingHorizontal: 32,
 		width: "100%",
-		height: 55,
+		height: 48,
 	},
 	text: {
 		color: colors.black,

@@ -12,15 +12,23 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ListingDetailsScreen from "../screens/ListingDetailsScreen";
 import ListingsNavigator from "./ListingsNavigator";
 import MyVehicleNavigator from "./MyVehicleNavigator";
-import { getAuth } from "firebase/auth";
+import { AuthCredential, getAuth, onAuthStateChanged } from "firebase/auth";
 import AuthNavigator from "./AuthNavigator";
 import { useAuth } from "../auth/context";
+import { useEffect, useState } from "react";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const HomeTabs = () => {
-	const { user } = useAuth();
+	const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
+	const auth = getAuth();
+
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			if (user) setLoggedIn(true);
+		});
+	}, [auth]);
 
 	return (
 		<Tab.Navigator
@@ -30,7 +38,7 @@ const HomeTabs = () => {
 				tabBarStyle: {
 					backgroundColor: colors.black,
 					borderTopWidth: 0,
-					height: 70,
+					height: 60,
 				},
 				tabBarActiveTintColor: colors.primary,
 				tabBarInactiveTintColor: colors.gray300,
@@ -51,7 +59,7 @@ const HomeTabs = () => {
 			/>
 			<Tab.Screen
 				name={routes.ACCOUNT}
-				component={user ? AccountScreen : AuthNavigator}
+				component={isLoggedIn ? AccountScreen : AuthNavigator}
 				options={{
 					tabBarIcon: ({ size, color }) => (
 						<Ionicons

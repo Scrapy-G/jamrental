@@ -15,15 +15,15 @@ type LoadingScreenProps = {
 
 function LoadingScreen({
 	visible = true,
-	backgroundColor = colors.black,
-	label = "Loading...",
+	backgroundColor = colors.black + "90",
+	label,
 }: LoadingScreenProps) {
 	if (!visible) return null;
 
 	return (
 		<Screen style={[styles.screen, { backgroundColor }]}>
 			<Loader size={150} />
-			<Text style={styles.text}>{label}</Text>
+			{label && <Text style={styles.text}>{label}</Text>}
 		</Screen>
 	);
 }

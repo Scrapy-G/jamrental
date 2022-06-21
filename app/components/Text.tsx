@@ -9,6 +9,7 @@ type AppTextProps = TextProps & {
 	bold?: boolean;
 	small?: boolean;
 	style?: TextStyle;
+	underline?: boolean;
 };
 
 export default function AppText({
@@ -16,6 +17,7 @@ export default function AppText({
 	color = colors.white,
 	bold = false,
 	small = false,
+	underline = false,
 	style,
 	...rest
 }: AppTextProps) {
@@ -26,6 +28,7 @@ export default function AppText({
 					color,
 					fontFamily: bold ? "Rubik_600SemiBold" : "Rubik_400Regular",
 					fontSize: small ? 13 : 16,
+					textDecorationLine: underline ? "underline" : undefined,
 				},
 				style,
 			]}
