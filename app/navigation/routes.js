@@ -16,4 +16,5 @@ export default Object.freeze({
 	LOGIN: "Login",
 	REGISTER: "Register",
 	VERIFY_PHONE: "VerifyPhone",
+	PASSWORD_RESET: "PasswordReset"
 });

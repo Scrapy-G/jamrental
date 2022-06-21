@@ -36,3 +36,10 @@ export type User = {
 	email: string;
 	name: string;
 };
+
+type UserLoginInfo = {
+	password: string;
+	name: string;
+	phoneNumber: number;
+	email: string;
+};

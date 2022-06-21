@@ -13,7 +13,7 @@ const radioItems = ["rented", "active", "inactive"];
 function MyVehiclesScreen({ navigation }: any) {
 	return (
 		<Screen style={styles.container}>
-			<NavHeader title='My Vehicles' navigation={navigation} />
+			<NavHeader title='My Vehicles' />
 			<IconButton
 				size={60}
 				name='add'

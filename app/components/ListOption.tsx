@@ -13,8 +13,6 @@ type ListOptionProps = {
 	leftIcon: React.ComponentProps<typeof Ionicons>["name"];
 	title: string;
 	showChevron?: boolean;
-	rightIcon?: React.ComponentProps<typeof Ionicons>["name"];
-	rightIconColor?: string;
 	style?: ViewStyle;
 	color?: string;
 	onPress?: () => void;
@@ -24,10 +22,8 @@ function ListOption({
 	leftIcon: icon,
 	title,
 	style,
-	color = colors.white,
+	color = colors.gray200,
 	onPress,
-	rightIcon,
-	rightIconColor,
 }: ListOptionProps) {
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
@@ -36,16 +32,9 @@ function ListOption({
 					style={styles.icon}
 					name={icon as React.ComponentProps<typeof Ionicons>["name"]}
 					size={24}
-					color={color}
+					color={colors.gray500}
 				/>
 				<AppText style={[styles.text, { color }]}>{title}</AppText>
-				{rightIcon && (
-					<Ionicons
-						name={rightIcon}
-						size={24}
-						color={rightIconColor || color}
-					/>
-				)}
 			</View>
 		</TouchableWithoutFeedback>
 	);
@@ -53,18 +42,20 @@ function ListOption({
 
 const styles = StyleSheet.create({
 	container: {
-		paddingHorizontal: 24,
+		paddingHorizontal: 12,
 		height: 55,
 		alignItems: "center",
-		borderRadius: 30,
 		backgroundColor: colors.gray700,
 		flexDirection: "row",
+		borderTopWidth: 1,
+		borderColor: colors.gray600,
 	},
 	icon: {
 		marginRight: 12,
 	},
 	text: {
 		flex: 1,
+		textTransform: "uppercase",
 	},
 });
 

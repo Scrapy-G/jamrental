@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 		marginRight: 24,
 	},
 	iconContainer: {
-		marginTop: 24,
+		marginTop: 30,
 		height: 36,
 	},
 });

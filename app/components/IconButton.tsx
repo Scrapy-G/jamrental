@@ -22,7 +22,7 @@ function IconButton({
 	size = 36,
 	style,
 	onPress,
-	color = colors.white,
+	color = colors.black,
 }: IconButtonProps) {
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		borderColor: colors.gray600,
 		borderWidth: 2,
-		borderRadius: 12,
+		borderRadius: 8,
 	},
 });
 

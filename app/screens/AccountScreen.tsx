@@ -5,13 +5,15 @@ import { Ionicons } from "@expo/vector-icons";
 
 import ListOption from "../components/ListOption";
 import Screen from "../components/Screen";
-import AppText from "../components/Text";
+import Text from "../components/Text";
 import colors from "../config/colors";
 import routes from "../navigation/routes";
 import useApi from "../api/useApi";
 import { logOut } from "../api/auth";
 import { useAuth } from "../auth/context";
 import { getAuth } from "firebase/auth";
+import { ScrollView } from "react-native-gesture-handler";
+import Account from "../components/Account";
 
 const accountOptions = [
 	{
@@ -38,61 +40,42 @@ function AccountScreen({ navigation }: any) {
 	};
 
 	return (
-		<Screen style={styles.screen}>
-			<View style={styles.profileInfo}>
-				<Image
-					source={require("../../assets/profile.png")}
-					style={styles.image}
-				/>
-				<AppText>{auth.currentUser?.displayName}</AppText>
-				<AppText small style={styles.subTitle}>
-					(876) 123 - 4567
-				</AppText>
-			</View>
-
-			{accountOptions.map(({ title, icon, target }, i) => (
+		<Screen>
+			<ScrollView style={styles.screen}>
+				<Text style={styles.heading}>Account</Text>
+				<Account />
+				{accountOptions.map(({ title, icon, target }, i) => (
+					<ListOption
+						key={i}
+						leftIcon={
+							icon as React.ComponentProps<
+								typeof Ionicons
+							>["name"]
+						}
+						title={title}
+						onPress={() => navigation.navigate({ name: target })}
+					/>
+				))}
 				<ListOption
-					key={i}
-					style={styles.options}
-					leftIcon={
-						icon as React.ComponentProps<typeof Ionicons>["name"]
-					}
-					title={title}
-					onPress={() => navigation.navigate({ name: target })}
-					rightIcon='chevron-forward'
+					leftIcon='power'
+					title='Logout'
+					showChevron={false}
+					onPress={handleLogOut}
 				/>
-			))}
-			<ListOption
-				style={styles.options}
-				leftIcon='power'
-				title='Logout'
-				color='#df5050'
-				showChevron={false}
-				onPress={handleLogOut}
-			/>
+			</ScrollView>
 		</Screen>
 	);
 }
 
 const styles = StyleSheet.create({
-	image: {
-		borderRadius: 45,
-		height: 90,
-		marginBottom: 12,
-		width: 90,
-	},
-	options: {
-		marginVertical: 5,
-	},
-	profileInfo: {
-		marginVertical: 42,
-		alignItems: "center",
+	heading: {
+		color: colors.primary,
+		fontSize: 34,
+		fontWeight: "bold",
 	},
 	screen: {
-		padding: 12,
-	},
-	subTitle: {
-		color: colors.gray200,
+		padding: 16,
+		paddingTop: 50,
 	},
 });
 

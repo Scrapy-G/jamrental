@@ -8,7 +8,7 @@ import AddFeaturesScreen from "../screens/AddFeaturesScreen";
 import AddImagesScreen from "../screens/AddImagesScreen";
 import VehicleLocationScreen from "../screens/VehicleLocationScreen";
 
-const MyVehicleNavigator = ({ navigation }: any) => {
+const MyVehicleNavigator = () => {
 	const Stack = createStackNavigator();
 	return (
 		<Stack.Navigator screenOptions={{ headerShown: false }}>

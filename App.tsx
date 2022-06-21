@@ -15,6 +15,7 @@ import * as SplashScreen from "expo-splash-screen";
 import RegisterScreen from "./app/screens/RegisterScreen";
 import LogInScreen from "./app/screens/LogInScreen";
 import { AuthContext } from "./app/auth/context";
+import VerifyPhoneScreen from "./app/screens/VerifyPhoneScreen";
 
 const theme = {
 	...DefaultTheme,
