@@ -1,6 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import ListOption from "../components/ListOption";
@@ -8,8 +7,6 @@ import Screen from "../components/Screen";
 import Text from "../components/Text";
 import colors from "../config/colors";
 import routes from "../navigation/routes";
-import useApi from "../api/useApi";
-import { logOut } from "../api/auth";
 import { useAuth } from "../auth/context";
 import { getAuth } from "firebase/auth";
 import { ScrollView } from "react-native-gesture-handler";
@@ -28,14 +25,12 @@ const accountOptions = [
 	},
 ];
 
-const auth = getAuth();
-
 function AccountScreen({ navigation }: any) {
-	const { request: logOutUser } = useApi(logOut);
 	const { setUser } = useAuth();
 
 	const handleLogOut = () => {
-		logOutUser();
+		const auth = getAuth();
+		auth.signOut();
 		setUser(null);
 	};
 
@@ -47,7 +42,7 @@ function AccountScreen({ navigation }: any) {
 				{accountOptions.map(({ title, icon, target }, i) => (
 					<ListOption
 						key={i}
-						leftIcon={
+						icon={
 							icon as React.ComponentProps<
 								typeof Ionicons
 							>["name"]
@@ -57,7 +52,7 @@ function AccountScreen({ navigation }: any) {
 					/>
 				))}
 				<ListOption
-					leftIcon='power'
+					icon='power'
 					title='Logout'
 					showChevron={false}
 					onPress={handleLogOut}

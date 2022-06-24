@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, View } from "react-native";
 
 import Screen from "../components/Screen";
 import useApi from "../api/useApi";
@@ -46,22 +46,24 @@ function AddFeaturesScreen({ navigation, route }: any) {
 	return (
 		<Screen>
 			<ScrollView style={styles.container}>
-				<NavHeader title='Features' navigation={navigation} />
+				<NavHeader title='Features' />
 
-				<CheckList
-					items={allFeatures}
-					selectedItems={selectedFeatures}
-					onAddItem={(item) =>
-						setSelectedFeatures([...selectedFeatures, item])
-					}
-					onRemoveItem={(item) =>
-						setSelectedFeatures(
-							selectedFeatures.filter(
-								(feature) => feature.name !== item.name
+				<View style={styles.listContainer}>
+					<CheckList
+						items={allFeatures}
+						selectedItems={selectedFeatures}
+						onAddItem={(item) =>
+							setSelectedFeatures([...selectedFeatures, item])
+						}
+						onRemoveItem={(item) =>
+							setSelectedFeatures(
+								selectedFeatures.filter(
+									(feature) => feature.name !== item.name
+								)
 							)
-						)
-					}
-				/>
+						}
+					/>
+				</View>
 
 				<Button
 					style={styles.button}
@@ -81,6 +83,9 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		marginVertical: 24,
+	},
+	listContainer: {
+		marginTop: 50,
 	},
 });
 

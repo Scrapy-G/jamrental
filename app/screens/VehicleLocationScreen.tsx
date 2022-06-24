@@ -10,12 +10,12 @@ import mapConfig from "../config/map";
 import Section from "../components/Section";
 import getAddress from "../api/address";
 import useApi from "../api/useApi";
-import AppText from "../components/Text";
+import Text from "../components/Text";
 import Button from "../components/Button";
 import LoadingScreen from "./LoadingScreen";
-import Loader from "../components/Loader";
 import { updateListing } from "../api/listings";
 import routes from "../navigation/routes";
+import colors from "../config/colors";
 
 function VehicleLocationScreen({ navigation, route }: any) {
 	const { listingRefId } = route.params;
@@ -32,18 +32,12 @@ function VehicleLocationScreen({ navigation, route }: any) {
 		addressApi.request(vehicleCoords.latitude, vehicleCoords.longitude);
 	}, [vehicleCoords]);
 
-	useEffect(() => {
-		loadAddress();
-	}, [vehicleCoords]);
-
-	const loadAddress = async () => {
-		if (!vehicleCoords) return;
-		const response = await addressApi.request(
-			vehicleCoords.latitude,
-			vehicleCoords.longitude
-		);
-		const result = await response.json();
-		setVehicleAddress(result.features[0].properties);
+	const handleLocationChange = async (coordinates: LatLng) => {
+		setVehicleCoords(coordinates);
+		const addressResult: any = await addressApi.request(coordinates);
+		if (addressApi.error) return;
+		// console.log(addressResult.features[0].properties);
+		setVehicleAddress(addressResult.features[0].properties);
 	};
 
 	const handleNext = async () => {
@@ -54,11 +48,12 @@ function VehicleLocationScreen({ navigation, route }: any) {
 			vehicleCoords.longitude,
 		]);
 
-		const result = await listingApi.request(listingRefId, {
+		await listingApi.request(listingRefId, {
 			coordinates: vehicleCoords,
 			geoHash,
 		});
-		if (result) navigation.navigate(routes.ADD_IMAGES, { listingRefId });
+
+		navigation.navigate(routes.ADD_IMAGES, { listingRefId });
 	};
 
 	if (!currentLocation) return <LoadingScreen />;
@@ -75,24 +70,22 @@ function VehicleLocationScreen({ navigation, route }: any) {
 				showsUserLocation
 				showsMyLocationButton={false}
 				onPress={(e) => {
-					console.log("coord", e.nativeEvent);
-					setVehicleCoords(e.nativeEvent.coordinate);
+					console.log("coord", e.nativeEvent.coordinate);
+					handleLocationChange(e.nativeEvent.coordinate);
 				}}
 			>
 				{vehicleCoords && <Marker coordinate={vehicleCoords} />}
 			</MapView>
 			<Section title='Vehicle Location'>
 				{addressApi.loading ? (
-					<Loader size={45} />
+					<Text color={colors.gray300}>Loading...</Text>
 				) : (
 					(vehicleAddress && (
 						<>
-							<AppText>
-								{vehicleAddress?.address_line1 + ","}
-							</AppText>
-							<AppText>{vehicleAddress?.address_line2}</AppText>
+							<Text>{vehicleAddress?.address_line1 + ","}</Text>
+							<Text>{vehicleAddress?.address_line2}</Text>
 						</>
-					)) || <AppText>Select a location</AppText>
+					)) || <Text color={colors.gray300}>Select a location</Text>
 				)}
 			</Section>
 			<View style={styles.buttonContainer}>

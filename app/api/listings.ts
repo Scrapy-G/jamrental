@@ -30,7 +30,7 @@ let batch: WriteBatch;
 const addListing = async (listing: any) => {
 	batch = writeBatch(clientDb);
 	const listingRef = doc(clientDb, endpoint, uuid.v4().toString());
-	await batch.set(listingRef, {
+	batch.set(listingRef, {
 		...listing,
 		completed: false,
 	});
@@ -39,8 +39,8 @@ const addListing = async (listing: any) => {
 
 const updateListing = async (refId: string, listing: any) => {
 	const listingRef = doc(clientDb, endpoint, refId);
-	const result = await batch.update(listingRef, listing);
-	return result;
+	await batch.update(listingRef, listing);
+	return true;
 };
 
 const uploadImages = async (refId: string, imageUris: string[]) => {

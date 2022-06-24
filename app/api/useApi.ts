@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useApi = (apiCall: Function) => {
+const useApi = (apiCall: (...args: any) => Promise<any>) => {
 	const [error, setError] = useState<any>();
 	const [loading, setLoading] = useState<boolean>(false);
 	const [data, setData] = useState<any>();

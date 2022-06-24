@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 		height: 50,
 		alignItems: "center",
 		marginVertical: 4,
-		paddingVertical: 12,
+		paddingVertical: 8,
 		...defaultStyles.text,
 	},
 	label: {

@@ -22,15 +22,13 @@ function CheckListItem({
 	return (
 		<ListOption
 			style={{
-				borderWidth: selected ? 2 : 0,
-				borderColor: colors.primary,
-				marginVertical: 8,
+				borderWidth: selected ? 1 : 0,
 			}}
-			leftIcon={icon}
+			icon={icon}
+			iconColor={selected ? colors.primary : colors.gray300}
+			textStyle={{ color: selected ? colors.primary : colors.gray200 }}
 			title={value}
 			onPress={selected ? onDeselect : onSelect}
-			rightIcon={selected ? "checkmark" : undefined}
-			rightIconColor={colors.primary}
 		/>
 	);
 }

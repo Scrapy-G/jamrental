@@ -1,10 +1,14 @@
-import { GEOAPIFY_API_KEY as key } from "@env";
+import { LatLng } from "react-native-maps";
 
-const endpoint = "https://api.geoapify.com/v1/geocode/reverse?";
+const getAddress = async (coordinates: LatLng) => {
+	const endpoint = "https://api.geoapify.com/v1/geocode/reverse?";
+	const key = "310e3ad74eb24148a720b9860f02f35a";
 
-console.log("key", key);
-const getAddress = async (latitude: number, longitude: number) => {
-	return fetch(`${endpoint}lat=${latitude}&lon=${longitude}&apiKey=${key}`);
+	const result = await fetch(
+		`${endpoint}lat=${coordinates.latitude}&lon=${coordinates.longitude}&apiKey=${key}`
+	);
+
+	return await result.json();
 };
 
 export default getAddress;

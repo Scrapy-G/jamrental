@@ -7,7 +7,7 @@ import colors from "../config/colors";
 
 function Account() {
 	const { user } = useAuth();
-    
+
 	return (
 		<View style={styles.container}>
 			<Image
@@ -17,7 +17,7 @@ function Account() {
 			<View style={styles.contentContainer}>
 				<Text style={styles.title}>{user.displayName}</Text>
 				<Text style={styles.subTitle}>{user.email}</Text>
-				<Text color={colors.primary}>Edit ></Text>
+				<Text color={colors.primary}>Edit</Text>
 			</View>
 		</View>
 	);

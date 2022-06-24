@@ -10,12 +10,9 @@ import { User } from "firebase/auth";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import AppNavigator from "./app/navigation/AppNavigator";
 import colors from "./app/config/colors";
-import { createContext, useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
-import RegisterScreen from "./app/screens/RegisterScreen";
-import LogInScreen from "./app/screens/LogInScreen";
 import { AuthContext } from "./app/auth/context";
-import VerifyPhoneScreen from "./app/screens/VerifyPhoneScreen";
 
 const theme = {
 	...DefaultTheme,
@@ -56,8 +53,8 @@ export default function App() {
 	);
 }
 
-const styles = StyleSheet.create({
-	container: {
-		paddingHorizontal: 24,
-	},
-});
+// const styles = StyleSheet.create({
+// 	container: {
+// 		paddingHorizontal: 24,
+// 	},
+// });

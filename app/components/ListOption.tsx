@@ -4,14 +4,17 @@ import {
 	StyleSheet,
 	ViewStyle,
 	TouchableWithoutFeedback,
+	TextStyle,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import AppText from "./Text";
 import colors from "../config/colors";
 
 type ListOptionProps = {
-	leftIcon: React.ComponentProps<typeof Ionicons>["name"];
+	icon: React.ComponentProps<typeof Ionicons>["name"];
 	title: string;
+	iconColor?: string;
+	textStyle?: TextStyle;
 	showChevron?: boolean;
 	style?: ViewStyle;
 	color?: string;
@@ -19,7 +22,9 @@ type ListOptionProps = {
 };
 
 function ListOption({
-	leftIcon: icon,
+	icon,
+	iconColor = colors.gray500,
+	textStyle,
 	title,
 	style,
 	color = colors.gray200,
@@ -32,9 +37,11 @@ function ListOption({
 					style={styles.icon}
 					name={icon as React.ComponentProps<typeof Ionicons>["name"]}
 					size={24}
-					color={colors.gray500}
+					color={iconColor}
 				/>
-				<AppText style={[styles.text, { color }]}>{title}</AppText>
+				<AppText style={[styles.text, { color }, textStyle]}>
+					{title}
+				</AppText>
 			</View>
 		</TouchableWithoutFeedback>
 	);
@@ -55,7 +62,6 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		flex: 1,
-		textTransform: "uppercase",
 	},
 });
 

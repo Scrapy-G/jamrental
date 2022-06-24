@@ -42,7 +42,7 @@ function AddImagesScreen({ navigation, route }: any) {
 
 	return (
 		<Screen style={styles.screen}>
-			<NavHeader navigation={navigation} title='Images' />
+			<NavHeader title='Images' />
 			<ImageInputList
 				imageUris={imageUris}
 				onAddImage={(uri) => uri && setImageUris([...imageUris, uri])}

@@ -4,8 +4,6 @@ import { Picker, PickerProps } from "@react-native-picker/picker";
 
 import colors from "../config/colors";
 import { PickerItem } from "../types";
-import AppText from "./Text";
-
 type AppPickerProps = PickerProps<string> & {
 	items: PickerItem[];
 	onValueChange: (arg1: string) => void;
@@ -44,18 +42,18 @@ function AppPicker({
 
 const styles = StyleSheet.create({
 	container: {
-		borderRadius: 15,
+		borderRadius: 10,
 		overflow: "hidden",
 		borderWidth: 1,
+		borderColor: colors.gray300,
 		height: 55,
 		justifyContent: "center",
 		paddingHorizontal: 8,
-		backgroundColor: colors.gray700,
+		// backgroundColor: colors.gray700,
 	},
 	picker: {
 		color: colors.white,
 		height: 55,
-
 		marginVertical: 8,
 	},
 });
