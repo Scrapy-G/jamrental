@@ -17,7 +17,7 @@ export type Vehicle = {
 	fuel: "premium" | "regular";
 	image: string;
 	coordinates: LatLng;
-	price: number;
+	price: number | string;
 	rating: number;
 	seats: number;
 	thumbnail: string;

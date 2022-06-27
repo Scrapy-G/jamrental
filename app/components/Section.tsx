@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 	container: {
 		padding: 24,
 		paddingTop: 12,
-		borderBottomColor: colors.gray700,
+		borderBottomColor: colors.gray600,
 		borderBottomWidth: 1,
 	},
 	sectionTitle: {

@@ -1,5 +1,11 @@
 import React from "react";
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import {
+	View,
+	StyleSheet,
+	TouchableWithoutFeedback,
+	ViewStyle,
+	ImageStyle,
+} from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
 import Text from "./Text";
@@ -9,20 +15,30 @@ import Rating from "./rating/Rating";
 type ListItem = {
 	title: string;
 	image: string;
-	rating: number;
+	rating?: number;
 	subTitle: number | string;
 	onPress: () => void;
+	containerStyle?: ViewStyle;
+	imageStyle?: ImageStyle
 };
-function ListItem({ title, image, rating, subTitle, onPress }: ListItem) {
+function ListItem({
+	title,
+	image,
+	rating,
+	subTitle,
+	onPress,
+	containerStyle,
+	imageStyle,
+}: ListItem) {
 	return (
 		<TouchableWithoutFeedback onPress={onPress}>
-			<View style={styles.container}>
-				<Image style={styles.image} uri={image} />
+			<View style={[styles.container, containerStyle]}>
+				<Image style={[styles.image, imageStyle]} uri={image} />
 				<View style={styles.detailsContainer}>
 					<Text style={styles.title} bold numberOfLines={1}>
 						{title}
 					</Text>
-					<Rating value={rating} color={colors.primary} />
+					{rating && <Rating value={rating} color={colors.primary} />}
 					<View style={styles.textContainer}>
 						<Text bold>{subTitle}</Text>
 						<Text style={styles.subText}>/ per day</Text>

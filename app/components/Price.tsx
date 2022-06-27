@@ -5,19 +5,15 @@ import Text from "./Text";
 import colors from "../config/colors";
 
 type PriceProps = {
-	price: number;
+	price: string | number;
 	fontSize?: number;
 };
 
 function Price({ price, fontSize = 16 }: PriceProps) {
-	const formatAmount = (n: number) => {
-		return "J$" + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	};
-
 	return (
 		<View style={styles.container}>
 			<Text style={{ fontSize }} bold>
-				{formatAmount(price)}
+				{price}
 			</Text>
 			<Text style={{ fontSize: fontSize * 0.7 }} color={colors.gray200}>
 				/ per day

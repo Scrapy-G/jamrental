@@ -78,10 +78,10 @@ const getListings = async (center: LatLng) => {
 	querySnapshots.forEach((doc) => {
 		const listing = doc.data() as Vehicle;
 
-		listing.thumbnail = `${thumbnailPrefix}/${doc.id}/${listing.thumbnail}`;
+		listing.thumbnail = getThumbnailUrl(doc.id, listing.thumbnail);
 		const images: string[] = [];
 		listing.images.forEach((imageUri) => {
-			images.push(`${imagePrefix}/${doc.id}/${imageUri}`);
+			images.push(getImageUrl(doc.id, imageUri));
 		});
 		listing.images = images;
 
@@ -132,6 +132,28 @@ const getListingsWithinRadius = async ({
 	});
 };
 
+const getUserListings = async (email: string) => {
+	const usersRef = collection(clientDb, "vehicles");
+	const q = query(usersRef, where("email", "==", email));
+	const vehicles: Vehicle[] = [];
+	const querySnapshot = await getDocs(q);
+	querySnapshot.forEach((doc) => {
+		const data = doc.data();
+		data.images = data.images.map((imageUri: string) =>
+			getImageUrl(doc.id, imageUri)
+		);
+
+		vehicles.push({
+			...data,
+			thumbnail: getThumbnailUrl(doc.id, data.thumbnail),
+			// price: formatAmount(data.price),
+			price: formatAmount(data.price),
+		} as Vehicle);
+	});
+
+	return vehicles;
+};
+
 const commitListing = async () => {
 	await batch.commit();
 	return true;
@@ -142,4 +164,23 @@ const imageType = (uri: string) => {
 	return uri.substring(dotIndex + 1);
 };
 
-export { addListing, updateListing, uploadImages, commitListing, getListings };
+const getThumbnailUrl = (listingId: string, url: string) => {
+	return `${thumbnailPrefix}/${listingId}/${url}`;
+};
+
+const getImageUrl = (listingId: string, url: string) => {
+	return `${imagePrefix}/${listingId}/${url}`;
+};
+
+const formatAmount = (n: number) => {
+	return "J$" + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+export {
+	addListing,
+	updateListing,
+	uploadImages,
+	commitListing,
+	getListings,
+	getUserListings,
+};

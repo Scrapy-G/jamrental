@@ -29,6 +29,7 @@ const car = {
 export default function ListingDetailsScreen({ route }: any) {
 	const vehicle: Vehicle = route.params;
 
+	console.log(vehicle);
 	return (
 		<Screen>
 			<ScrollView>
@@ -49,20 +50,20 @@ export default function ListingDetailsScreen({ route }: any) {
 					<Price price={vehicle.price} fontSize={22} />
 				</Section>
 
-				<Section title='Basics'>
+				<Section title="Basics">
 					<View style={styles.iconContainer}>
 						<Icon
-							name='car-outline'
+							name="car-outline"
 							label={vehicle.type}
 							color={colors.white}
 						/>
 						<Icon
-							name='beaker-outline'
+							name="beaker-outline"
 							label={vehicle.fuel}
 							color={colors.white}
 						/>
 						<Icon
-							name='md-person-add-outline'
+							name="md-person-add-outline"
 							label={vehicle.seats + " seats"}
 							color={colors.white}
 						/>
@@ -70,7 +71,7 @@ export default function ListingDetailsScreen({ route }: any) {
 				</Section>
 
 				<Section
-					title='Features'
+					title="Features"
 					FooterComponent={
 						<Text small bold color={colors.primary}>
 							View all
@@ -91,7 +92,7 @@ export default function ListingDetailsScreen({ route }: any) {
 					</View>
 				</Section>
 
-				<Section title='provider'>
+				<Section title="provider">
 					<Text>Provider name</Text>
 				</Section>
 			</ScrollView>
