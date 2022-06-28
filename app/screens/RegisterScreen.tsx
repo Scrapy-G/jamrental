@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, ScrollView, View } from "react-native";
+import React, { useRef } from "react";
+import { StyleSheet, ScrollView, View, TextInput } from "react-native";
 import Form from "../components/form/Form";
 import Screen from "../components/Screen";
 import * as Yup from "yup";
@@ -37,6 +37,9 @@ type UserLoginInfo = {
 };
 
 function RegisterScreen({ navigation, route }: any) {
+	const emailRef = useRef();
+	const nameRef = useRef<TextInput>(null);
+
 	const handleSubmit = async (newUser: UserLoginInfo) => {
 		navigation.navigate(routes.VERIFY_PHONE, {
 			loginInfo: newUser,
@@ -54,7 +57,7 @@ function RegisterScreen({ navigation, route }: any) {
 						onSubmit={handleSubmit}
 					>
 						<FormPhoneInput name='phoneNumber' />
-						<FormField name='email' placeholder='Email' />
+						<FormField name='email' placeholder='Email' returnKeyType="next"/>
 						<FormField name='name' placeholder='Name' />
 						<FormField
 							name='password'

@@ -22,7 +22,7 @@ export type Vehicle = {
 	seats: number;
 	thumbnail: string;
 	images: string[];
-	type: "manual" | "automatic";
+	transmission: "manual" | "automatic";
 	provider: User;
 	year: number;
 };

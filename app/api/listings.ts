@@ -76,16 +76,18 @@ const getListings = async (center: LatLng) => {
 	});
 	const results: Vehicle[] = [];
 	querySnapshots.forEach((doc) => {
-		const listing = doc.data() as Vehicle;
+		const listing = doc.data();
 
 		listing.thumbnail = getThumbnailUrl(doc.id, listing.thumbnail);
 		const images: string[] = [];
-		listing.images.forEach((imageUri) => {
+		listing.images.forEach((imageUri: string) => {
 			images.push(getImageUrl(doc.id, imageUri));
 		});
 		listing.images = images;
 
-		results.push(listing);
+		listing.price = formatAmount(listing.price);
+
+		results.push(listing as Vehicle);
 	});
 	return results;
 };

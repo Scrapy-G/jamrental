@@ -58,10 +58,6 @@ function ListingsScreen({ navigation }: any) {
 		return { longitude, latitude };
 	};
 
-	const formatAmount = (n: number) => {
-		return "J$" + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	};
-
 	if (!currentLocation) return <LoadingScreen />;
 
 	return (
@@ -70,7 +66,7 @@ function ListingsScreen({ navigation }: any) {
 				<View style={styles.topBar}>
 					<Button
 						style={styles.searchButton}
-						title='Search area'
+						title="Search area"
 						disabled={loading || areaSearched}
 						onPress={() => {
 							loadListings(mapCoords);
@@ -85,8 +81,8 @@ function ListingsScreen({ navigation }: any) {
 				markerItems={listings}
 				selectedMarkerIndex={selectedItemIndex}
 				handleMarkerPress={setItemIndex}
-				labelExtractor={(item) => formatAmount(item.price)}
-				prefix='$'
+				labelExtractor={(item) => item.price}
+				prefix="$"
 				onPanDrag={(e) => {
 					setMapCoords(e.nativeEvent.coordinate);
 					areaSearched && setAreaSearched(false);
@@ -106,7 +102,7 @@ function ListingsScreen({ navigation }: any) {
 								key={index}
 								image={item.thumbnail}
 								rating={item.rating}
-								subTitle={formatAmount(item.price)}
+								subTitle={item.price}
 								title={
 									item.make +
 									" " +

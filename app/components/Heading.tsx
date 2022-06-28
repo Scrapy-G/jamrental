@@ -18,7 +18,6 @@ export default function Heading({ children, style }: Props) {
 
 const styles = StyleSheet.create({
 	heading: {
-		fontSize: 36,
-		marginVertical: 12,
+		fontSize: 24,
 	},
 });

@@ -13,28 +13,22 @@ import { Vehicle } from "../types";
 import Price from "../components/Price";
 import Section from "../components/Section";
 import ImageCarousel from "../components/ImageCarousel";
-
-const car = {
-	id: 1,
-	name: "Blue BMW 2020",
-	image: require("../../assets/car.png"),
-	features: {
-		ac: true,
-		seats: 5,
-		fuel: "premium",
-		type: "automatic",
-	},
-};
+import Favorite from "../components/Favorite";
 
 export default function ListingDetailsScreen({ route }: any) {
 	const vehicle: Vehicle = route.params;
 
-	console.log(vehicle);
+	// console.log(vehicle);
 	return (
 		<Screen>
 			<ScrollView>
 				<View style={styles.imageContainer}>
 					<ImageCarousel images={vehicle.images} />
+					<Favorite
+						checked
+						onChange={() => {}}
+						style={styles.favoriteIcon}
+					/>
 				</View>
 
 				<Section>
@@ -47,15 +41,20 @@ export default function ListingDetailsScreen({ route }: any) {
 						color={colors.primary}
 						fontSize={16}
 					/>
-					<Price price={vehicle.price} fontSize={22} />
+					<Price
+						price={vehicle.price}
+						fontSize={20}
+						color={colors.primary}
+					/>
 				</Section>
 
 				<Section title="Basics">
 					<View style={styles.iconContainer}>
 						<Icon
 							name="car-outline"
-							label={vehicle.type}
+							label={vehicle.transmission}
 							color={colors.white}
+							size={30}
 						/>
 						<Icon
 							name="beaker-outline"
@@ -91,10 +90,6 @@ export default function ListingDetailsScreen({ route }: any) {
 							))}
 					</View>
 				</Section>
-
-				<Section title="provider">
-					<Text>Provider name</Text>
-				</Section>
 			</ScrollView>
 		</Screen>
 	);
@@ -104,6 +99,11 @@ const styles = StyleSheet.create({
 	detailContainer: {
 		paddingHorizontal: 24,
 		alignItems: "center",
+	},
+	favoriteIcon: {
+		position: "absolute",
+		bottom: 10,
+		right: 24,
 	},
 	features: {
 		flexDirection: "row",

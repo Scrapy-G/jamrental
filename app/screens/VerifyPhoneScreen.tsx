@@ -71,7 +71,7 @@ function VerifyPhoneScreen({ navigation, route }: any) {
 			const user = await signInWithCredential(auth, credential);
 			await updateUserProfile();
 			console.log({ text: "Phone authentication successful 👍" });
-			setUser(user);
+			setUser(user.user);
 		} catch (err: any) {
 			console.log(`Error: ${err.message}`);
 			setError(err.message);
@@ -120,7 +120,7 @@ function VerifyPhoneScreen({ navigation, route }: any) {
 			/>
 			<LoadingScreen visible={loading} />
 			<ErrorBanner error={error} visible={error} />
-			<NavHeader title='Verify' />
+			<NavHeader title="Verify" />
 			<Text color={colors.gray300}>
 				We have sent OTP on your number {loginInfo.phoneNumber}
 			</Text>
@@ -129,7 +129,7 @@ function VerifyPhoneScreen({ navigation, route }: any) {
 				space={1}
 				codeLength={6}
 				size={50}
-				inputPosition='center'
+				inputPosition="center"
 				codeInputStyle={styles.input}
 				containerStyle={styles.codeContainer}
 				onFulfill={(code: string) => verifyCode(code)}
