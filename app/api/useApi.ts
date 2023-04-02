@@ -15,6 +15,7 @@ const useApi = (apiCall: (...args: any) => Promise<any>) => {
 			return response;
 		} catch (error) {
 			setError(error);
+			console.log("error", error);
 		} finally {
 			setLoading(false);
 		}

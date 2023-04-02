@@ -13,11 +13,11 @@ import { ScrollView } from "react-native-gesture-handler";
 import Account from "../components/Account";
 
 const accountOptions = [
-	{
-		title: "Favorites",
-		icon: "heart-outline",
-		target: routes.FAVORITES,
-	},
+	// {
+	// 	title: "Favorites",
+	// 	icon: "heart-outline",
+	// 	target: routes.FAVORITES,
+	// },
 	{
 		title: "My Vehicles",
 		icon: "car-outline",

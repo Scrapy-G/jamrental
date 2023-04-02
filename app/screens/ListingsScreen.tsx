@@ -20,149 +20,145 @@ import colors from "../config/colors";
 import LoadingScreen from "./LoadingScreen";
 
 function ListingsScreen({ navigation }: any) {
-	const {
-		data: listings,
-		loading,
-		request: loadListings,
-		error,
-	} = useApi(getListings);
+  const {
+    data: listings,
+    loading,
+    request: loadListings,
+    error,
+  } = useApi(getListings);
 
-	const [mapCoords, setMapCoords] = useState<LatLng>();
-	const [areaSearched, setAreaSearched] = useState<boolean>(true);
-	const [selectedItemIndex, setItemIndex] = useState<number>(0);
-	const [currentLocation, setLocation] = useState<LatLng>();
+  const [mapCoords, setMapCoords] = useState<LatLng>();
+  const [areaSearched, setAreaSearched] = useState<boolean>(true);
+  const [selectedItemIndex, setItemIndex] = useState<number>(0);
+  const [currentLocation, setLocation] = useState<LatLng>();
 
-	const carouselRef = useRef<Carousel<Vehicle>>(null);
+  const carouselRef = useRef<Carousel<Vehicle>>(null);
 
-	useEffect(() => {
-		requestLocationPermission().then((latlng) => loadListings(latlng));
-	}, []);
+  useEffect(() => {
+    requestLocationPermission().then((latlng) => loadListings(latlng));
+  }, []);
 
-	useEffect(() => {
-		carouselRef.current?.snapToItem(selectedItemIndex);
-	}, [selectedItemIndex]);
+  useEffect(() => {
+    carouselRef.current?.snapToItem(selectedItemIndex);
+  }, [selectedItemIndex]);
 
-	const requestLocationPermission = async () => {
-		const { status } = await Location.requestForegroundPermissionsAsync();
+  const requestLocationPermission = async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      alert("You need to enabled location permission to use this app");
+      setLocation(mapStyles.defaultLocation);
+      console.log("default location");
+    }
 
-		if (status !== "granted") {
-			alert("You need to enabled location permission to use this app");
-			setLocation(mapStyles.defaultLocation);
-		}
+    const {
+      coords: { longitude, latitude },
+    } = await Location.getCurrentPositionAsync({
+      accuracy: Location.Accuracy.Lowest,
+    });
 
-		const {
-			coords: { longitude, latitude },
-		} = await Location.getCurrentPositionAsync();
-		setLocation({ longitude, latitude });
+    if (!longitude || !latitude) setLocation(mapStyles.defaultLocation);
+    else setLocation({ longitude, latitude });
 
-		return { longitude, latitude };
-	};
+    return { longitude, latitude };
+  };
 
-	if (!currentLocation) return <LoadingScreen />;
+  console.log("intial region", { currentLocation });
+  if (!currentLocation) return <LoadingScreen />;
 
-	return (
-		<Screen>
-			{!areaSearched && (
-				<View style={styles.topBar}>
-					<Button
-						style={styles.searchButton}
-						title="Search area"
-						disabled={loading || areaSearched}
-						onPress={() => {
-							loadListings(mapCoords);
-							setAreaSearched(true);
-						}}
-					/>
-				</View>
-			)}
+  return (
+    <Screen>
+      {!areaSearched && (
+        <View style={styles.topBar}>
+          <Button
+            style={styles.searchButton}
+            title="Search area"
+            disabled={loading || areaSearched}
+            onPress={() => {
+              loadListings(mapCoords);
+              setAreaSearched(true);
+            }}
+          />
+        </View>
+      )}
 
-			<Map
-				initialRegion={{ ...currentLocation, ...mapStyles.delta }}
-				markerItems={listings}
-				selectedMarkerIndex={selectedItemIndex}
-				handleMarkerPress={setItemIndex}
-				labelExtractor={(item) => item.price}
-				prefix="$"
-				onPanDrag={(e) => {
-					setMapCoords(e.nativeEvent.coordinate);
-					areaSearched && setAreaSearched(false);
-				}}
-			/>
-			<LinearGradient
-				colors={["transparent", "#00000040"]}
-				style={styles.listingsContainer}
-			>
-				{loading && <Loader size={100} />}
-				{listings && (
-					<Carousel
-						ref={carouselRef}
-						data={listings}
-						renderItem={({ item, index }) => (
-							<ListItem
-								key={index}
-								image={item.thumbnail}
-								rating={item.rating}
-								subTitle={item.price}
-								title={
-									item.make +
-									" " +
-									item.model +
-									" " +
-									item.year
-								}
-								onPress={() => {
-									console.log("press");
-									navigation.navigate(
-										routes.LISTING_DETAILS,
-										item
-									);
-								}}
-							/>
-						)}
-						sliderWidth={Dimensions.get("window").width}
-						itemWidth={295}
-						swipeThreshold={10}
-						lockScrollWhileSnapping
-						onSnapToItem={setItemIndex}
-						enableMomentum
-					/>
-				)}
-				{listings?.length === 0 && (
-					<Text style={styles.message}>No rentals in this area.</Text>
-				)}
-			</LinearGradient>
-		</Screen>
-	);
+      <Map
+        initialRegion={{ ...currentLocation, ...mapStyles.delta }}
+        markerItems={listings}
+        selectedMarkerIndex={selectedItemIndex}
+        handleMarkerPress={setItemIndex}
+        labelExtractor={(item) => item.price}
+        prefix="$"
+        onPanDrag={(e) => {
+          setMapCoords(e.nativeEvent.coordinate);
+          areaSearched && setAreaSearched(false);
+        }}
+      />
+      <LinearGradient
+        colors={["transparent", "#00000040"]}
+        style={styles.listingsContainer}
+      >
+        {loading && <Loader size={100} />}
+        {listings && (
+          <Carousel
+            ref={carouselRef}
+            data={listings}
+            renderItem={({ item, index }) => (
+              <ListItem
+                key={index}
+                image={item.thumbnail}
+                rating={item.rating}
+                subTitle={item.price}
+                title={item.make + " " + item.model + " " + item.year}
+                onPress={() => {
+                  console.log("press");
+                  navigation.navigate(routes.LISTING_DETAILS, item);
+                }}
+              />
+            )}
+            sliderWidth={Dimensions.get("window").width}
+            itemWidth={295}
+            swipeThreshold={10}
+            lockScrollWhileSnapping
+            onSnapToItem={setItemIndex}
+            enableMomentum
+          />
+        )}
+        {listings?.length === 0 && (
+          <Text style={styles.message}>No rentals in this area.</Text>
+        )}
+      </LinearGradient>
+    </Screen>
+  );
 }
 
 const styles = StyleSheet.create({
-	filterButton: {
-		marginLeft: 10,
-		borderWidth: 0,
-	},
-	listingsContainer: {
-		width: "100%",
-		justifyContent: "center",
-		position: "absolute",
-		bottom: 0,
-		zIndex: 100,
-		paddingVertical: 16,
-		alignItems: "center",
-	},
-	searchButton: {
-		width: 200,
-	},
-	topBar: {
-		width: "100%",
-		position: "absolute",
-		alignItems: "center",
-		zIndex: 1,
-		height: 0,
-		top: 10,
-	},
-	message: {
-		marginVertical: 10,
-	},
+  filterButton: {
+    marginLeft: 10,
+    borderWidth: 0,
+  },
+  listingsContainer: {
+    width: "100%",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 0,
+    zIndex: 100,
+    paddingVertical: 16,
+    alignItems: "center",
+  },
+  searchButton: {
+    width: 200,
+  },
+  topBar: {
+    width: "100%",
+    position: "absolute",
+    alignItems: "center",
+    zIndex: 1,
+    height: 0,
+    top: 10,
+  },
+  message: {
+    marginVertical: 10,
+  },
 });
 
 export default ListingsScreen;

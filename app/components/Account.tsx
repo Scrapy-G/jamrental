@@ -9,18 +9,19 @@ function Account() {
 	const { user } = useAuth();
 
 	return (
-		<View style={styles.container}>
-			<Image
-				source={require("../../assets/profile.png")}
-				style={styles.image}
-			/>
-			<View style={styles.contentContainer}>
-				<Text style={styles.title}>{user.displayName}</Text>
-				<Text style={styles.subTitle}>{user.email}</Text>
-				<Text color={colors.primary}>Edit</Text>
-			</View>
-		</View>
-	);
+    <View style={styles.container}>
+      <Image
+        source={require("../../assets/profile.png")}
+        style={styles.image}
+      />
+      <View style={styles.contentContainer}>
+        <Text style={styles.title}>{user.displayName}</Text>
+        <Text style={styles.subTitle}>{user.email}</Text>
+        <Text style={styles.subTitle}>{user.phoneNumber}</Text>
+        {/* <Text color={colors.primary}>Edit</Text> */}
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

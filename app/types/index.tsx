@@ -24,6 +24,9 @@ export type Vehicle = {
 	images: string[];
 	transmission: "manual" | "automatic";
 	provider: User;
+	user: {
+		phoneNumber: string;
+	};
 	year: number;
 };
 

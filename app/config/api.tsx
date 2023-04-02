@@ -1,3 +1,3 @@
 export default {
-    geoapifyKey: "YOUR GEOAPIFY KEY HERE",
-}
+  geoapifyKey: "API KEY HERE",
+};

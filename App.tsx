@@ -1,4 +1,3 @@
-import { StyleSheet } from "react-native";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
 	useFonts,
@@ -31,8 +30,8 @@ export default function App() {
 		SplashScreen.preventAutoHideAsync();
 		const auth = getAuth();
 		onAuthStateChanged(auth, (user) => {
-			if (user) setUser(user);
-			setAuthLoaded(true);
+		if (user) setUser(user);
+		setAuthLoaded(true);
 		});
 	}, []);
 
@@ -52,9 +51,3 @@ export default function App() {
 		</AuthContext.Provider>
 	);
 }
-
-// const styles = StyleSheet.create({
-// 	container: {
-// 		paddingHorizontal: 24,
-// 	},
-// });
