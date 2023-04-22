@@ -27,12 +27,15 @@ export default function App() {
 	const [user, setUser] = useState<User>();
 
 	useEffect(() => {
+		// console.disableYellowBox = true;
+
 		SplashScreen.preventAutoHideAsync();
 		const auth = getAuth();
 		onAuthStateChanged(auth, (user) => {
 		if (user) setUser(user);
 		setAuthLoaded(true);
 		});
+
 	}, []);
 
 	useEffect(() => {

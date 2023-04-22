@@ -8,12 +8,10 @@ import IconButton from "../components/IconButton";
 import ListItem from "../components/ListItem";
 import ListSeparator from "../components/ListSeparator";
 import Loader from "../components/Loader";
-import PillRadioInput from "../components/PillRadioInput";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import NavHeader from "../navigation/NavHeader";
 import routes from "../navigation/routes";
-import { Vehicle } from "../types";
 
 const radioItems = ["rented", "active", "inactive"];
 

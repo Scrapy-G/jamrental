@@ -6,14 +6,11 @@ import Heading from "../components/Heading";
 import Rating from "../components/rating/Rating";
 import Icon from "../components/Icon";
 import colors from "../config/colors";
-import Text from "../components/Text";
-import AppModal from "../components/AppModal";
 import AppButton from "../components/Button";
 import { Vehicle } from "../types";
 import Price from "../components/Price";
 import Section from "../components/Section";
 import ImageCarousel from "../components/ImageCarousel";
-import Favorite from "../components/Favorite";
 import IconButton from "../components/IconButton";
 
 export default function ListingDetailsScreen({ navigation, route }: any) {
@@ -44,7 +41,7 @@ export default function ListingDetailsScreen({ navigation, route }: any) {
           <Price price={vehicle.price} fontSize={20} color={colors.primary} />
           <AppButton
 		  	style={{ marginTop: 30 }}
-            title={"Call +1" + vehicle.user.phoneNumber}
+            title={"Call " + vehicle.user.phoneNumber}
             onPress={() => {
 				Linking.openURL(`tel:${vehicle.user.phoneNumber}`);
 			}}
