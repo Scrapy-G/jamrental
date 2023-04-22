@@ -31,7 +31,7 @@ function MyVehiclesScreen({ navigation }: any) {
 		loadUserListings(user.email);
 	}, [navigation]);
 
-	// console.log(listings);
+	// console.log("listings", listings);
 
 	return (
 		<Screen style={styles.container}>

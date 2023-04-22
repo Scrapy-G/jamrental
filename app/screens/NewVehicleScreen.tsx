@@ -12,6 +12,7 @@ import { addListing } from "../api/listings";
 import NavHeader from "../navigation/NavHeader";
 import routes from "../navigation/routes";
 import LoadingScreen from "./LoadingScreen";
+import { useAuth } from "../auth/context";
 
 const validationSchema = Yup.object().shape({
 	transmission: Yup.string().required().label("Transmission"),
@@ -55,9 +56,15 @@ const fuelItems = [
 
 function NewVehicleScreen({ navigation }: any) {
 	const { request: createListing, loading } = useApi(addListing);
+	const { user } = useAuth();
 
 	const handleSubmit = async (listing: any) => {
-		const response = await createListing(listing);
+		const userSnap = {
+			displayName: user.displayName,
+			email: user.email,
+			phoneNumber: user.phoneNumber
+		}
+		const response = await createListing({ ...listing, user: userSnap });
 		navigation.navigate(routes.ADD_FEATURES, { listingRefId: response.id });
 	};
 

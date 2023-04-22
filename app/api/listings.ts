@@ -136,7 +136,7 @@ const getListingsWithinRadius = async ({
 
 const getUserListings = async (email: string) => {
 	const usersRef = collection(clientDb, "vehicles");
-	const q = query(usersRef, where("email", "==", email));
+	const q = query(usersRef, where("user.email", "==", email));
 	const vehicles: Vehicle[] = [];
 	const querySnapshot = await getDocs(q);
 	querySnapshot.forEach((doc) => {
