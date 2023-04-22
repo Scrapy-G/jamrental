@@ -1,31 +1,39 @@
 {
-	"expo": {
-		"name": "JamRental",
-		"slug": "JamRental",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/icon.png",
-		"userInterfaceStyle": "light",
-		"splash": {
-			"image": "./assets/splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": true
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/adaptive-icon.png",
-				"backgroundColor": "#FFFFFF"
-			}
-		},
-		"web": {
-			"favicon": "./assets/favicon.png"
-		}
-	}
+  "expo": {
+    "name": "JamRental",
+    "slug": "JamRental",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.scrapyg.JamRental"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3e19e5ba-04fd-47ed-a197-1cc0e64eb6ba"
+      }
+    }
+  }
 }

@@ -14,8 +14,9 @@ import Price from "../components/Price";
 import Section from "../components/Section";
 import ImageCarousel from "../components/ImageCarousel";
 import Favorite from "../components/Favorite";
+import IconButton from "../components/IconButton";
 
-export default function ListingDetailsScreen({ route }: any) {
+export default function ListingDetailsScreen({ navigation, route }: any) {
   const vehicle: Vehicle = route.params;
 
   console.log(vehicle.user);
@@ -24,6 +25,9 @@ export default function ListingDetailsScreen({ route }: any) {
       <ScrollView>
         <View style={styles.imageContainer}>
           <ImageCarousel images={vehicle.images} />
+          <IconButton style={styles.backButton} name="chevron-back-outline" onPress={() => {
+            navigation.goBack();
+          }}></IconButton>
           {/* <Favorite checked onChange={() => {}} style={styles.favoriteIcon} /> */}
         </View>
 
@@ -123,4 +127,9 @@ const styles = StyleSheet.create({
   rating: {
     marginVertical: 8,
   },
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+  }
 });

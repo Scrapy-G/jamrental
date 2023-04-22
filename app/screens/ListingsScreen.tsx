@@ -44,25 +44,23 @@ function ListingsScreen({ navigation }: any) {
 
   const requestLocationPermission = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
+    
     if (status !== "granted") {
       alert("You need to enabled location permission to use this app");
       setLocation(mapStyles.defaultLocation);
       console.log("default location");
+      return;
     }
 
-    const {
-      coords: { longitude, latitude },
-    } = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.Lowest,
+    const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest
     });
 
-    if (!longitude || !latitude) setLocation(mapStyles.defaultLocation);
-    else setLocation({ longitude, latitude });
+    if (!location) setLocation(mapStyles.defaultLocation);
+    else setLocation(location.coords);
 
-    return { longitude, latitude };
+    return location.coords;
   };
 
-  console.log("intial region", { currentLocation });
   if (!currentLocation) return <LoadingScreen />;
 
   return (
